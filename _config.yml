@@ -17,3 +17,6 @@ github:
 pages_list:
   archive: '/archive/'
   about: '/about/'
+
+sass:
+  sass_dir: _sass
