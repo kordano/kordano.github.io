@@ -13,14 +13,6 @@
   body {
     padding-top: 60px;
   }
-#the-brand {
-color:steelblue;
-}
-#the-brand:mouseover {
-color:grey;
-}
-
-
 </style>
 
 <!-- Optional theme -->
@@ -28,10 +20,16 @@ color:grey;
 </head>
 
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <a class="navbar-brand" style="color:steelblue" href="/" id="the-brand"> {{ site.name }}</a>
-</div>
-
-<div class="container">
-
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="col-md-offset-1">
+      <a class="navbar-brand" style="color:#859900" href="/" id="the-brand"> {{ site.name }}</a>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<ul class="nav navbar-nav">
+	  {% for page in site.pages_list %}
+	  &nbsp;&nbsp;&nbsp;<li><a href="{{ page[1] }}">{{ page[0] }}</a></li>
+	  {% endfor %}
+	</ul>
+      </div>
+    </div>
+  </div>
+<div class="col-md-8 col-md-offset-2" >
