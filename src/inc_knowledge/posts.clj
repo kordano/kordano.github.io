@@ -6,4 +6,5 @@
 (defn parse-posts [path]
   (let [directory (file path)]
     (for [post (remove #(.isDirectory %) (file-seq directory))]
-      (-> post slurp md-to-html-string))))
+      {:post (-> post slurp md-to-html-string)
+       :target (clojure.string/replace (.getName post) #".md" ".html")})))

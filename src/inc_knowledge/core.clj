@@ -4,12 +4,10 @@
             [inc-knowledge.templates :as tmpl]
             [inc-knowledge.posts :as posts]))
 
-(def pages {"/index.html" (apply str (tmpl/layout (apply str (posts/parse-posts "./posts"))))})
-
-(def app (stasis/serve-pages pages))
+(def pages {"/index.html" (->> "./pre-posts" posts/parse-posts first :post tmpl/layout (apply str)) })
 
 (defn export []
-  (let [export-dir "./resources/posts"]
-    (stasis/empty-directory! export-dir)
-    (stasis/export-pages pages export-dir)
-    (println "Export to" export-dir "complete!")))
+  (let [posts-dir "./posts"]
+    (stasis/empty-directory! posts-dir)
+    (stasis/export-pages "./")
+    (println "Export to" posts-dir "complete!")))
