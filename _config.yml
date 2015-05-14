@@ -7,13 +7,13 @@ paginate: 10
 
 markdown: redcarpet
 
-pygments: rouge
+highlighter: pygments
 
 permalink: pretty
 
-github: 
+github:
     repo: github.com/kordano/kordano.github.io
 
-pages_list: 
-    archive: '/archive/' 
+pages_list:
+    archive: '/archive/'
     about: '/about/'
