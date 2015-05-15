@@ -11,9 +11,9 @@ highlighter: pygments
 
 permalink: pretty
 
-github: 
+github:
     repo: github.com/kordano/kordano.github.io
 
-pages_list: 
+pages_list:
     archive: '/archive/'
     about: '/about/'
