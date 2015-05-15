@@ -1,5 +1,5 @@
 name: "(inc knowledge)"
-description: "Kordano's thought collection"
+description: "Konrad Kühne's web presence"
 
 url: "http://localhost:4000"
 
@@ -7,7 +7,7 @@ paginate: 10
 
 markdown: redcarpet
 
-pygments: rouge
+highlighter: pygments
 
 permalink: pretty
 
@@ -15,5 +15,5 @@ github:
     repo: github.com/kordano/kordano.github.io
 
 pages_list: 
-    archive: '/archive/' 
+    archive: '/archive/'
     about: '/about/'

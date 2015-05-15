@@ -6,34 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ site.description }}">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/syntax.css">
 
-<style>
-  body {
-    padding-top: 60px;
-  }
-</style>
+  </head>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-<!-- Syntax highlighting -->
-<link rel="stylesheet" href="/public/css/syntax.css">
-
-</head>
-
-<body>
-  <div class="navbar navbar-default navbar-fixed-top">
-    <div class="col-md-offset-1">
-      <a class="navbar-brand" style="color:#859900" href="/" id="the-brand"> {{ site.name }}</a>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	<ul class="nav navbar-nav">
-	  {% for page in site.pages_list %}
-	  &nbsp;&nbsp;&nbsp;<li><a href="{{ page[1] }}">{{ page[0] }}</a></li>
-	  {% endfor %}
-	</ul>
-      </div>
-    </div>
-  </div>
-<div class="col-md-8 col-md-offset-2" >
+  <body>
+    <div class="main-container">
+      <nav class="navbar">
+	{% for page in site.pages_list %} &nbsp;&nbsp;&nbsp;<a href="{{ page[1] }}">{{ page[0] }}</a> {% endfor %}
+      </nav>
+      <div class="content-container">
