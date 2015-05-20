@@ -7,6 +7,7 @@ layout: default
     <h3 class="site-post-title">{{ post.title }}</h3>
     <small class="site-post-date">{{ post.date | date_to_string }}</small>
   </div>
-  <span class="site-post-abstract">{{post.abstract}} <small><a href="{{ post.url }}">read more...</a></small></span>
+  <span class="site-post-abstract">{{post.abstract}} </span>
+  <small><a href="{{ post.url }}">read more...</a></small>
 </div>
 {% endfor %}
