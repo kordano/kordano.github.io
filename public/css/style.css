@@ -1,18 +1,33 @@
-body {
-    padding-top: 60px;
-}
-
 .main-container{
     display: flex;
     flex-direction: row;
-    justify-content: stretch;
+    flex: 1 100%;
 }
 
 .content-container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .navbar {
     display: flex;
     flex-direction: column;
+    margin: 0px 10px 0px 0px;
+    border-right: 1px solid #a4a4a4;
+}
+
+.nav-item {
+    padding: 0 15px 0px 15px;
+    color: #0b2222;
+    fontsize: 1em;
+    text-align: center;
+}
+
+.post-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1 100%;
+    justify-content: stretch;
 }
