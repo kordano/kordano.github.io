@@ -58,7 +58,7 @@ body{
     color: #666666
 }
 
-.page-header{
+.header{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,9 +82,10 @@ body{
     margin: 0;
 }
 
-.site-post-date{
+.sub-header{
     color: #666666
 }
+
 
 
 @media screen and (max-width: 800px) {
