@@ -34,3 +34,23 @@
 .post-date{
     color: #666666
 }
+
+.post-content{
+    margin: 0 19.1% 0 19.1%;
+}
+
+@media all and (max-width: 800px) {
+    .main-container{
+	display: flex;
+	flex-direction: column;
+	flex: 1 100%;
+    }
+    .navbar {
+	display: flex;
+	flex-direction: row;
+	border-right: 1px solid #a4a4a4;
+    }
+    .post-content{
+	margin: 0;
+    }
+}
