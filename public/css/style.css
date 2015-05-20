@@ -6,6 +6,7 @@
 body{
     margin: 0;
     font-family: 'Titillium Web', sans-serif;
+    padding: 0;
 }
 .main-container{
     display: flex;
@@ -27,10 +28,11 @@ body{
     position: fixed;
     background: white;
     flex-direction: column;
-    margin: 0px 10px 0px 0px;
+    margin: 0;
     border-right: 1px solid #a4a4a4;
     height: 100%;
     witdth: auto;
+    align-content: flex-start;
 }
 
 .nav-item {
@@ -38,6 +40,11 @@ body{
     color: #0b2222;
     fontsize: 1em;
     text-align: center;
+    border-bottom: 
+}
+
+.nav-item:hover{
+    color: #2aa198;
 }
 
 .post-header{
@@ -51,6 +58,35 @@ body{
     color: #666666
 }
 
+.page-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: stretch;
+}
+
+.site-post{
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0 15px 0;
+}
+.site-post-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.site-post-title{
+    margin: 0;
+}
+
+.site-post-date{
+    color: #666666
+}
+
+
 @media screen and (max-width: 800px) {
     .main-container{
 	display: flex;
@@ -59,6 +95,7 @@ body{
     }
     
     .content-container {
+	padding-top: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -76,6 +113,13 @@ body{
 	height: auto;
 	width: 100%;
     }
+    
+    .nav-item {
+	padding: 5px 15px 5px 15px;
+	text-decoration: none;
+    }
+
+
     .post-content{
 	margin: 0;
     }

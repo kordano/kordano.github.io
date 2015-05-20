@@ -15,6 +15,7 @@
   <body>
     <div class="main-container">
       <nav class="navbar">
+	<a class="nav-item" href="/">home</a>
 	{% for page in site.pages_list %} &nbsp;&nbsp;&nbsp;<a class="nav-item" href="{{ page[1] }}">{{ page[0] }}</a> {% endfor %}
       </nav>
       <div class="content-container">
