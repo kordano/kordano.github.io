@@ -26,8 +26,11 @@
 
 .post-header{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    flex: 1 100%;
     justify-content: stretch;
+}
+
+.post-date{
+    color: #666666
 }
