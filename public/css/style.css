@@ -3,7 +3,6 @@
     src: url(TitilliumWeb-Regular.ttf);
 }
 
-
 body{
     margin: 0;
     font-family: 'Titillium Web', sans-serif;
@@ -52,7 +51,7 @@ body{
     color: #666666
 }
 
-@media all and (max-width: 800px) {
+@media screen and (max-width: 800px) {
     .main-container{
 	display: flex;
 	flex-direction: column;
@@ -71,6 +70,7 @@ body{
 	display: flex;
 	flex-direction: row;
 	margin: 0;
+	padding: 0;
 	border-bottom: 1px solid #a4a4a4;
 	border-right: none;
 	height: auto;
