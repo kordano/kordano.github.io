@@ -1,20 +1,30 @@
+body{
+    margin: 0;
+}
 .main-container{
     display: flex;
     flex-direction: row;
     flex: 1 100%;
+    margin: 0;
 }
 
 .content-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
+    margin: 0 19.1% 0 19.1%;
 }
 
 .navbar {
     display: flex;
+    position: fixed;
+    background: white;
     flex-direction: column;
     margin: 0px 10px 0px 0px;
     border-right: 1px solid #a4a4a4;
+    height: 100%;
+    witdth: auto;
 }
 
 .nav-item {
@@ -36,7 +46,6 @@
 }
 
 .post-content{
-    margin: 0 19.1% 0 19.1%;
 }
 
 @media all and (max-width: 800px) {
@@ -45,10 +54,23 @@
 	flex-direction: column;
 	flex: 1 100%;
     }
+    
+    .content-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	margin: 0;
+    }
+
     .navbar {
 	display: flex;
 	flex-direction: row;
-	border-right: 1px solid #a4a4a4;
+	margin: 0;
+	border-bottom: 1px solid #a4a4a4;
+	border-right: none;
+	height: auto;
+	width: 100%;
     }
     .post-content{
 	margin: 0;
