@@ -45,9 +45,6 @@ body{
     color: #666666
 }
 
-.post-content{
-}
-
 @media all and (max-width: 800px) {
     .main-container{
 	display: flex;
