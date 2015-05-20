@@ -7,7 +7,7 @@ My current reading list, updated every other weekend. If I find something worth 
 
 - [x] Flow *by Mihali Csíkszentmihályi*
 - [ ] Hyperion *by Dan Simmons*
-- [ ] Mastery *by George Greene*
+- [ ] Mastery *by Robert Greene*
 - [ ] How to solve it *by Georg Pólya*   
 
 <small class="post-date">Last updated: {{ site.time | time: '%T' }}</small>
