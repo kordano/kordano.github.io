@@ -10,7 +10,7 @@ body{
 }
 .main-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex: 1 100%;
     margin: 0;
 }
@@ -19,33 +19,32 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
     margin: 0 19.1% 0 19.1%;
 }
 
 .navbar {
     display: flex;
-    position: fixed;
-    background: white;
-    flex-direction: column;
-    margin: 0;
-    border-right: 1px solid #a4a4a4;
-    height: 100%;
-    witdth: auto;
-    align-content: flex-start;
+    flex-direction: row;
+    padding: 0;
+    border-bottom: 1px solid #a4a4a4;
+    justify-content: space-between;
+    margin: 0 19.1% 0 19.1%;
 }
 
 .nav-item {
-    padding: 0 15px 0px 15px;
+    padding: 5px 15px 5px 15px;
+    margin: 0;
+    text-decoration: none;
     color: #0b2222;
     fontsize: 1em;
     text-align: center;
-    border-bottom: 
 }
 
 .nav-item:hover{
-    color: #2aa198;
+    color: #B43C50;
+	       
 }
+/* #2aa198 #AC2475*/
 
 .post-header{
     display: flex;
@@ -103,22 +102,11 @@ body{
 	margin: 0;
 	width: 100%;
     }
-
     .navbar {
-	display: flex;
-	flex-direction: row;
 	margin: 0;
-	padding: 0;
-	border-bottom: 1px solid #a4a4a4;
-	border-right: none;
-	height: auto;
 	width: 100%;
-    }
-    
-    .nav-item {
-	padding: 5px 15px 5px 15px;
-	text-decoration: none;
-    }
+}
+
 
     .post-content{
 	margin: 0;
