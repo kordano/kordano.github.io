@@ -22,6 +22,7 @@ body{
     margin: 0 19.1% 0 19.1%;
 }
 
+/* NAV */
 .navbar {
     display: flex;
     flex-direction: row;
@@ -41,7 +42,7 @@ body{
 }
 
 .home-item{
-    font-size : 1.2em;
+    font-size : 1.1em;
     color: #2aa198;
 }
 
@@ -51,6 +52,8 @@ body{
 }
 /* #2aa198 #AC2475 color: #B43C50; */
 
+
+/* POST */
 .post-header{
     display: flex;
     flex-direction: column;
@@ -91,6 +94,7 @@ body{
 }
 
 
+/* SMALL SCREENS */
 
 @media screen and (max-width: 800px) {
     .main-container{
@@ -107,10 +111,13 @@ body{
 	margin: 0;
 	width: 100%;
     }
+    .home-item{
+	font-size: 1.0em;
+    }
     .navbar {
 	margin: 0;
 	width: 100%;
-}
+    }
 
 
     .post-content{
