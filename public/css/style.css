@@ -40,11 +40,16 @@ body{
     text-align: center;
 }
 
-.nav-item:hover{
-    color: #B43C50;
-	       
+.home-item{
+    font-size : 1.2em;
+    color: #2aa198;
 }
-/* #2aa198 #AC2475*/
+
+.nav-item:hover{
+    color: white;
+    background: #2aa198;
+}
+/* #2aa198 #AC2475 color: #B43C50; */
 
 .post-header{
     display: flex;
