@@ -9,5 +9,3 @@ My current reading list, updated every other weekend. If I come across something
 - [ ] Hyperion *by Dan Simmons*
 - [ ] Mastery *by Robert Greene*
 - [ ] How to solve it *by Georg Pólya*   
-
-<small class="post-date">Last updated: {{ site.time | time: '%T' }}</small>
