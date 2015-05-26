@@ -16,6 +16,5 @@ github:
     repo: github.com/kordano/kordano.github.io
 
 pages_list:
-    readings: '/readings/'
     archive: '/archive/'
     about: '/about/'
