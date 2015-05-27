@@ -104,13 +104,21 @@ body{
     color: #0b2222;
 }
 
-.site-post-title a:hover {
+.site-post-title a:hover{
     text-decoration: underline;
+    color: #38A861;
+}
+
+a:hover{
     color: #38A861;
 }
 
 .site-post-title a:visited {
     color: #a4a4a4;
+}
+
+.site-post-title a:visited:hover {
+    color: #38A861;
 }
 
 .sub-header{
@@ -132,7 +140,7 @@ body{
 	flex-direction: column;
 	flex: 1 100%;
     }
-    
+
     .content-container {
 	padding-top: 30px;
 	display: flex;
