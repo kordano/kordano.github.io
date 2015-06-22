@@ -1,16 +1,26 @@
-#+startup: hidestars
+#+TITLE: blog
+#+TAGS: bug feature review writing draft post
+#+TODO: TODO(t) STARTED(s!) DONE(d!) 
+#+TODO: CANCELED(c@)
+#+CATEGORY: geschichte
+#+STARTUP: overview 
+#+STARTUP: hidestars
+#+PROPERTY: Assigned_to_ALL kordano
 * kordano.github.io
 Just my personal blog.
 
-* tasks
-** DONE a test							       :test:
-   CLOSED: [2015-06-17 Mi 10:27]
-   - State "DONE"       from "TODO"       [2015-06-17 Mi 10:27]
-   - Note taken on [2015-06-17 Mi 10:23] \\
-     this is a test
-   DEADLINE: <2015-12-24 Do> 
-:PROPERTIES:
-:CREATED: [2015-06-17 Mi]
-:OWNER: konny
-:END:
+* TODOs
+** TODO Draft and create 'about me' section 			      :draft:
+ DEADLINE: <2015-06-26 Fr>
+ :PROPERTIES:
+ :Created: [2015-06-22 Mo 11:47]
+ :Assigned_to: kordano
+ :END:
 
+* License
+
+Copyright © 2015 Konrad Kühne
+
+Distributed under the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: <http://www.gnu.org/licenses/>.
