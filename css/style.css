@@ -300,8 +300,8 @@ ul.nav-list {
     color: #4A4A4A;
     text-align: center; }
     .card > .card-header img.avatar {
-      width: 192px;
-      height: 192px;
+      width: 128px;
+      height: 128px;
       border-radius: 50%;
       border: 5px solid #dce7f7; }
     .card > .card-header i.avatar {
@@ -463,11 +463,11 @@ table.customers-table {
       left: -15px; }
 
 .col-cut {
-  max-width: 650px;
+  max-width: 768px;
 }
 
 .card-body {
-  font-size: 1.7rem;
+  font-size: 1.9rem;
 }
 
 .card-footer {
