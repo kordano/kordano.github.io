@@ -1,0 +1,13 @@
+  <div class="col _center col-cut">
+    <div class="card">
+      <div class="card-header">
+        <header class="section-header">
+          <h2>{{ page.title }}</h2>
+        </header>
+        <p>{{ page.date | date_to_string }}</p>
+        <small class="post-intro">{{ page.introduction }}</small>
+      </div>
+      <div class="card-body">
+        {{ content }}
+      </div>
+  </div>

@@ -1,15 +1,19 @@
-<div class="container -large _center main-row row">
   <div class="col _center col-cut">
     <div class="card">
       <div class="card-header">
-        <img class="avatar" src="kkuehne.jpg" width="128" height="128">
+        {% if page.picture %}
+          <img class="avatar" src="kkuehne.jpg" width="128" height="128">
+        {% endif %}
         <header class="section-header">
           <h2>{{page.subtitle}}</h2>
         </header>
+        <p>
+          {% if page.introduction %} {{ page.introduction }}
+          {% else %} {{ }}
+          {% endif %}
+        </p>
       </div>
       <div class="card-body">
         {{content}}
       </div>
-      {% include footer.html %}
   </div>
-</div>

@@ -1,12 +1,11 @@
 ---
 layout: default
-title: Konrad Kühne
-subtitle: Greetings, my name is Konrad!
-introduction: I am a software developer writing about web technologies
-picture: true
+title: Blog
+subtitle: Published Articles
 ---
- <ul>
-{% for post in site.posts offset: 0 limit: 10 %}
+ 
+<ul>
+{% for post in site.posts %}
   <li>
   <div class="index-post">
     <a class="index-post-item" href="{{ post.url }}">
