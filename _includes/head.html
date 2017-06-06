@@ -17,10 +17,10 @@
   <link rel="stylesheet" type="text/css" href="/css/ionicons.min.css">
 </head>
 <body>
-<nav>
-  <a href="/">Home</a>
-  <a href="/blog">Blog</a>
-  <a href="/about">About</a>
-  <a href="/imprint">Impressum</a>
+<nav class="nav">
+  <a class="{% if page.url == '/' %} active {% endif %}"  href="/">Home</a>
+  <a class="{% if page.url == '/blog.html' %} active {% endif %}"  href="/blog">Blog</a>
+  <a class="{% if page.url == '/about.html' %} active {% endif %}"  href="/about">About</a>
+  <a class="{% if page.url == '/imprint.html' %} active {% endif %}"  href="/imprint">Impressum</a>
 </nav>
 <div class="container -large _center main-row row">

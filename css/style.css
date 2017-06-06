@@ -482,3 +482,14 @@ table.customers-table {
 .index-post-item {
   display: inline-block;
 }
+
+.nav {
+  text-align: center;
+  margin-top: 1em;
+}
+.nav a.active {
+  border-bottom: 2px solid  #139cfc;
+}
+.nav a+a {
+  margin-left: 2em;
+}
