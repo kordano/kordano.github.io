@@ -5,7 +5,14 @@ introduction: A short trip through web development via Om, a beautiful React-wra
 ---
 Before the rise of single page and mobile applications all of the state was handled on the server side by interacting directly with the databases. For the single page applications we need another layer of abstraction to coordinate the state, maybe some REST API that handles all the relevant state changes between clients and databases. That pattern complected the development process in many ways and it makes it rather difficult to extend and manage a product.   
 
-In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. In order to follow the steps you should be a little bit familiar with web development and Clojure.   
+In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. 
+
+We will build a simple project time tracking application... (Explain more, maybe some figures about view and states...)   
+
+In order to follow the steps you should be a little bit familiar with web development and Clojure.   
+
+
+# The Setup
 
 First make sure, you have everyting ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using emacs because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
 
@@ -26,7 +33,13 @@ Let's add the relevant libraries to the `:dependencies` in our `project.clj`:
 [compojure "1.5.2"]
 ```
 
-[replikativ](http://replikativ.io/) handles all our state synchronisation between a server peer and clients, [om](https://github.com/omcljs/om/) is be our representation layer on the client, [sablono](https://github.com/r0man/sablono) makes templating easy as we can use simple Clojure data structures for html elements, [http-kit](http://www.http-kit.org/) serves all the assets and base index html and [compojure](https://github.com/weavejester/compojure) handles routing for us.   
+These libraries are:
+
+- [replikativ](http://replikativ.io/) handles all our state synchronisation between a server peer and clients
+- [om](https://github.com/omcljs/om/) provides the representation layer on the client
+- [sablono](https://github.com/r0man/sablono) makes templating easy as we can use simple Clojure data structures for html elements
+- [http-kit](http://www.http-kit.org/) serves all the assets and base index html 
+- [compojure](https://github.com/weavejester/compojure) handles routing for us   
 
 Now we create an `index.html` in `resources/public` as our root web app container with the following content:   
 
@@ -89,6 +102,8 @@ The final project structure should look like this:
         └── core_test.clj
 ```
 
+# The Backend
+
 Alright, now can start writing the server. Let's open `src/clj/core.clj` and start a repl-session. First we should add all our dependencies, so the head of the file might look something like:
 
 ```clojure
@@ -141,8 +156,15 @@ Now we only need to add a main routine to start our system:
 
 That's it! We don't need anything more for the backend. Pretty nice!   
 
+# The Frontend
 
-Now we can start with the web client. Let's open `src/cljs/core.cljs` and add again all the dependencies we need:
+Now we can start with the web client. Let's start a figwheel repl:
+
+```
+lein figwheel
+```
+
+Wait a little bit and then we can start editing `src/cljs/core.cljs`. Again we need to add all the dependencies:
 
 ```clojure
 (ns stechuhr.core
@@ -160,3 +182,99 @@ Now we can start with the web client. Let's open `src/cljs/core.cljs` and add ag
   (:require-macros [superv.async :refer [go-try <? go-loop-try]]
                    [cljs.core.async.macros :refer [go-loop]]))
 ```
+
+First we define some constants and our state atom where we all our captures will be stored:
+```
+(def user "mail:alice@stechuhr.de")
+(def ormap-id #uuid "07f6aae2-2b46-4e44-bfd8-058d13977a8a")
+(def uri "ws://127.0.0.1:31778")
+(defonce val-atom (atom {:captures #{}}))
+```
+
+Next we need to setup replikativ with some streaming functions and initialization of store, peer and stage as well as connection to the server peer.   
+
+The streaming evaluation functions need to be defined as a hashmap:
+
+```
+(def stream-eval-fns
+  {'add (fn [a new]
+            (swap! a update-in [:captures] conj new)
+            a)
+   'remove (fn [a new]
+             (swap! a update-in [:captures] (fn [old] (set (remove #{new} old))))
+             a)})
+```
+
+We have here an add function that appends a new capture to the existing list, and a remove function that retracts a given capture from our capture list. Like in the backend we also write a setup function for replikativ:
+
+```
+(defn setup-replikativ []
+  (go-try
+   S
+   (let [store  (<? S (new-mem-store)) ; (1)
+         peer   (<? S (client-peer S store)) ; (2)
+         stage  (<? S (create-stage! user peer)) ; (3)
+         stream (stream-into-identity! stage [user ormap-id] stream-eval-fns val-atom)] ; (4)
+     (<? S (s/create-ormap! stage :description "captures" :id ormap-id)) ; (5)
+     (connect! stage uri) ; (6)
+     {:store  store
+      :stage  stage
+      :stream stream
+      :peer   peer}))) ; (7)
+```
+
+This looks familiar but let's go through it step by step:
+
+1. First we initialize a key-value store
+2. Then we start a peer 
+3. We initialize a stage which is the replikativ state we are interacting with
+4. Then we initialize the streaming interface that applies all changes to our local state
+5. Now we create the replicated data type we are working with, in this case an OR-Map
+6. Next we connect our stage with the server peer
+7. Finally we return all the different values in a hashmap
+
+For simplicity we wrap the only stage interaction in a function
+
+```
+(defn add-capture! [state capture]
+  (s/assoc! (:stage state)
+            [user ormap-id]
+            (uuid capture)
+            [['add capture]]))
+```
+
+By choosing the hash of the data as key we convert the OR-Map into an OR-Set. Now we are good to go on the state and data side, let's move on to the UI side.    
+
+First we create the base component with a plain `div`:
+
+```
+(defui App
+  Object
+  (render [this]
+    (html [:div [:h1 "Hello Stechuhr]"])))
+```
+
+Then we set it as root:
+
+```
+(def reconciler
+  (om/reconciler {:state val-atom}))
+
+(om/add-root! reconciler App (.getElementById js/document "app"))
+```
+
+Let's see what this looks like: open the browser at [http://localhost:3449](http://localhost:3449) where you should see **Hello Stechuhr**. Awesome, now we can rapidly extend the page. Maybe we start with the input field for our captures:
+
+```
+(defn input-widget [component placeholder local-key]
+  [:input {:value (get (om/get-state component) local-key)
+           :placeholder placeholder
+           :on-change (fn [e]
+                        (om/update-state!
+                         component
+                         assoc
+                         local-key
+                         (.. e -target -value)))}])
+```
+
+

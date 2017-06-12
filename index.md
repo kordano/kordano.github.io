@@ -7,7 +7,7 @@ picture: true
 ---
  <ul>
 {% for post in site.posts offset: 0 limit: 10 %}
-  <li>
+  <li class="index-posts">
   <div class="index-post">
     <a class="index-post-item" href="{{ post.url }}">
       <h2>{{ post.title }}</h2>

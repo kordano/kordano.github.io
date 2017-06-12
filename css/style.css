@@ -499,7 +499,7 @@ code, tt {
 }
 
 .highlighter-rouge {
-    margin: 2em 2px;
+    margin: 1.5em 2px;
 }
 /*
 
@@ -542,8 +542,20 @@ pre {
 border: none; }
 
 */
+.card-body ul {
+    list-style: initial;
+    margin: 1em 1em;
+}
 
-ol {
+.card-body ol {
     list-style: numeric;
     margin: 1em 1em;
+}
+
+.card-body h1 {
+    font-size: 2.5rem;
+}
+
+.index-posts {
+    list-style: none;
 }
