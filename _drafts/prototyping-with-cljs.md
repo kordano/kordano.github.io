@@ -5,6 +5,10 @@ introduction: A short trip through web development via Om, a beautiful React-wra
 ---
 Before the rise of single page and mobile applications all of the state was handled on the server side by interacting directly with the databases. For the single page applications we need another layer of abstraction to coordinate the state, maybe some REST API that handles all the relevant state changes between clients and databases. That pattern complected the development process in many ways and it makes it rather difficult to extend and manage a product.   
 
+(What's replikativ? ...)
+
+(REST vs replikativ ...)
+
 In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. 
 
 We will build a simple project time tracking application... (Explain more, maybe some figures about view and states...)   
@@ -317,7 +321,7 @@ Now we can add all the input widgets:
        (input-widget this "Capture" :input-capture)]]))) ;  ⇐
 ```
 
-We should see a headline and three input elements by now on the page. This input should be added to our local stage, so we add a button that performs this actions.
+We should see a headline and three input elements by now on the page. This input should be added to our local replikativ state, so we add a button that performs this actions.
 
 ```
 (defui App
@@ -354,7 +358,10 @@ We should see a headline and three input elements by now on the page. This input
 ```
 
 The button's `on-click` callback now retrieves the input data, builds our capture model, adds the data to our replikativ state and cleans up the local state. If we now press the button, open the developer javascript console, we can see that some things happen in replikativ. That shouldn't discourage you, it's only logs so far and we are not yet connected to any server systems.   
+
 For that we go back to `src/clj/core.clj` and evaluate the `-main` function. Now we have a running server peer that clients can use.   
+
+
 But can we connect to this peer? Easy! Let's go back to `src/cljs/stechuhr/core.cljs` and add some main function, that initilizes replikativ with the relevant peer, stage and store. Just add the following above the `reconciler`:
 
 ```
@@ -415,3 +422,5 @@ Finally we should add some table that shows our captures:
 Now we should see the captures that we added before. Now let's check if this data synchronises to other browser clients. Therefore we open an new browser window at [http://localhost:3449](http://localhost:3449) where we can observe the newly added captures.
 
 And that's it, we have a small prototype with just some lines of code with a fully functional backend, that replicates all data to clients, makes online updates and supports offline capabilities.
+
+(Maybe some final words and replikativ future ...)
