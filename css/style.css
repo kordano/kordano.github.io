@@ -553,7 +553,13 @@ border: none; }
 }
 
 .card-body h1 {
+    font-size: 3rem;
+    margin: 1.5em 0 0 0;
+}
+
+.card-body h2 {
     font-size: 2.5rem;
+    margin: 1.5em 0 0 0;
 }
 
 .index-posts {

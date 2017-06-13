@@ -104,7 +104,7 @@ The final project structure should look like this:
 
 # The Backend
 
-Alright, now can start writing the server. Let's open `src/clj/core.clj` and start a repl-session. First we should add all our dependencies, so the head of the file might look something like:
+Alright, now can start writing the server. Let's open `src/clj/stechuhr/core.clj` and start a repl-session. First we should add all our dependencies, so the head of the file might look something like:
 
 ```clojure
 (ns stechuhr.core
@@ -158,13 +158,17 @@ That's it! We don't need anything more for the backend. Pretty nice!
 
 # The Frontend
 
+(Some intro to client dev ...)
+
+## Synchronisation Setup
+
 Now we can start with the web client. Let's start a figwheel repl:
 
 ```
 lein figwheel
 ```
 
-Wait a little bit and then we can start editing `src/cljs/core.cljs`. Again we need to add all the dependencies:
+Wait a little bit and then we can start editing `src/cljs/stechuhr/core.cljs`. Again we need to add all the dependencies:
 
 ```clojure
 (ns stechuhr.core
@@ -245,6 +249,8 @@ For simplicity we wrap the only stage interaction in a function
 
 By choosing the hash of the data as key we convert the OR-Map into an OR-Set. Now we are good to go on the state and data side, let's move on to the UI side.    
 
+## User Interface
+
 First we create the base component with a plain `div`:
 
 ```
@@ -277,4 +283,135 @@ Let's see what this looks like: open the browser at [http://localhost:3449](http
                          (.. e -target -value)))}])
 ```
 
+Before we can use this widget we should add local state for the three input elements:
 
+```
+(defui App
+  Object
+  (componentWillMount                         ;  ⇐
+    [this]                                    ;  ⇐
+    (om/set-state! this {:input-project ""    ;  ⇐
+                         :input-task    ""    ;  ⇐
+                         :input-capture ""})) ;  ⇐ 
+  (render [this]
+    (html [:div [:h1 "Hello Stechuhr"]])))
+```
+
+Now we can add all the input widgets:
+ 
+```
+(defui App
+  Object
+  (componentWillMount
+    [this]
+    (om/set-state! this {:input-project ""
+                         :input-task    ""
+                         :input-capture ""}))
+  (render [this]
+    (html
+     [:div
+      [:div.widget                                       ;  ⇐
+       [:h1 "Task Captures"]                             ;  ⇐
+       (input-widget this "Project" :input-project)      ;  ⇐
+       (input-widget this "Task" :input-task)            ;  ⇐
+       (input-widget this "Capture" :input-capture)]]))) ;  ⇐
+```
+
+We should see a headline and three input elements by now on the page. This input should be added to our local stage, so we add a button that performs this actions.
+
+```
+(defui App
+  Object
+  (componentWillMount
+   [this]
+   (om/set-state! this {:input-project ""
+                        :input-task ""
+                        :input-capture ""}))
+  (render [this]
+    (let [{:keys [input-project                                     ;  ⇐
+                  input-task                                        ;  ⇐
+                  input-capture]} (om/get-state this)               ;  ⇐
+          {:keys [captures]} (om/props this)]                       ;  ⇐
+      (html
+       [:div
+        [:div.widget
+         [:h1 "Task Captures"]
+         (input-widget this "Project" :input-project)
+         (input-widget this "Task" :input-task)
+         (input-widget this "Capture" :input-capture)
+         [:button                                                   ;  ⇐
+          {:on-click                                                ;  ⇐
+          (fn [_]                                                   ;  ⇐
+            (let [new-capture {:project input-project               ;  ⇐
+                               :task input-task                     ;  ⇐
+                               :capture input-capture}]             ;  ⇐
+              (do                                                   ;  ⇐
+                (add-capture! replikativ-state new-capture)         ;  ⇐
+                (om/update-state! this assoc :input-project "")     ;  ⇐
+                (om/update-state! this assoc :input-task "")        ;  ⇐
+                (om/update-state! this assoc :input-capture ""))))} ;  ⇐
+          "Add"]]]))))                                              ;  ⇐
+```
+
+The button's `on-click` callback now retrieves the input data, builds our capture model, adds the data to our replikativ state and cleans up the local state. If we now press the button, open the developer javascript console, we can see that some things happen in replikativ. That shouldn't discourage you, it's only logs so far and we are not yet connected to any server systems.   
+For that we go back to `src/clj/core.clj` and evaluate the `-main` function. Now we have a running server peer that clients can use.   
+But can we connect to this peer? Easy! Let's go back to `src/cljs/stechuhr/core.cljs` and add some main function, that initilizes replikativ with the relevant peer, stage and store. Just add the following above the `reconciler`:
+
+```
+(defn main [& args]
+  (go-try S (def replikativ-state (<? S (setup-replikativ))))
+  (.error js/console "Stechuhr connected ...."))
+```
+
+We have created all necessary replikativ setup functions before, so this is piece of cake!   
+
+Finally we should add some table that shows our captures:
+
+```
+(defui App
+  Object
+  (componentWillMount
+   [this]
+   (om/set-state! this {:input-project ""
+                        :input-task ""
+                        :input-capture ""}))
+  (render [this]
+    (let [{:keys [input-project input-task input-capture]} (om/get-state this)
+          {:keys [captures]} (om/props this)]
+      (html
+       [:div
+        [:div.widget
+         [:h1 "Task Captures"]
+         (input-widget this "Project" :input-project)
+         (input-widget this "Task" :input-task)
+         (input-widget this "Capture" :input-capture)
+         [:button
+          {:on-click
+          (fn [_]
+            (let [new-capture {:project input-project
+                               :task input-task
+                               :capture input-capture}]
+              (do
+                (add-capture! replikativ-state new-capture)
+                (om/update-state! this assoc :input-project "")
+                (om/update-state! this assoc :input-task "")
+                (om/update-state! this assoc :input-capture ""))))}
+          "Add"]]
+        [:div.widget                            ;  ⇐
+         [:table                                ;  ⇐
+          [:tr                                  ;  ⇐
+           [:th "Project"]                      ;  ⇐
+           [:th "Task"]                         ;  ⇐
+           [:th "Capture"]]                     ;  ⇐
+          (mapv                                 ;  ⇐
+           (fn [{:keys [project task capture]}] ;  ⇐
+             [:tr                               ;  ⇐
+              [:td project]                     ;  ⇐
+              [:td task]                        ;  ⇐
+              [:td capture]])                   ;  ⇐
+           captures)]]]))))                     ;  ⇐
+```
+
+Now we should see the captures that we added before. Now let's check if this data synchronises to other browser clients. Therefore we open an new browser window at [http://localhost:3449](http://localhost:3449) where we can observe the newly added captures.
+
+And that's it, we have a small prototype with just some lines of code with a fully functional backend, that replicates all data to clients, makes online updates and supports offline capabilities.
