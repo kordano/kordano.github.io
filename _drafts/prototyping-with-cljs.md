@@ -7,6 +7,9 @@ Before the rise of single page and mobile applications all of the state was hand
 
 (What's replikativ? ...)
 
+(CRDTs n stuff 
+[wiki](https://en.m.wikipedia.org/wiki/Conflict-free_replicated_data_type) and [nice article about crdts](https://medium.com/@istanbul_techie/a-look-at-conflict-free-replicated-data-types-crdt-221a5f629e7e) )
+
 (REST vs replikativ ...)
 
 In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. 
@@ -18,7 +21,7 @@ In order to follow the steps you should be a little bit familiar with web develo
 
 # The Setup
 
-First make sure, you have everyting ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using emacs because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
+First make sure, you have everyting ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using [emacs](https://www.gnu.org/software/emacs/) because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
 
 Alright let's start by creating a new figwheel project:
 
@@ -421,6 +424,6 @@ Finally we should add some table that shows our captures:
 
 Now we should see the captures that we added before. Now let's check if this data synchronises to other browser clients. Therefore we open an new browser window at [http://localhost:3449](http://localhost:3449) where we can observe the newly added captures.
 
-And that's it, we have a small prototype with just some lines of code with a fully functional backend, that replicates all data to clients, makes online updates and supports offline capabilities.
+And that's it, we have a small prototype with just some lines of code with a fully functional backend, that replicates all data to clients, provides realtime updates and supports offline capabilities.
 
 (Maybe some final words and replikativ future ...)
