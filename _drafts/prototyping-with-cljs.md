@@ -163,7 +163,7 @@ That's it! We don't need anything more for the backend. Pretty nice!
 
 # <a name="the-frontend"></a> The Frontend
 
-(Some intro to client dev ...)
+While the backend has very little code, the frontend will be a little more challenging. We will first create all the functions necessary to setup replikativ on the browser and to connect to the backend. Then we will write a basic React root component and enrich it step by step by adding the capture inputs , an interaction button and a table of our captured inputs.
 
 ## Synchronisation Setup
 
@@ -370,7 +370,7 @@ But can we connect to this peer? Easy! Let's go back to `src/cljs/stechuhr/core.
   (go-try S (def replikativ-state (<? S (setup-replikativ))))
   (.error js/console "Stechuhr connected ...."))
 ```
- We have created all necessary replikativ setup functions before, so this is piece of cake!   
+We have created all necessary replikativ setup functions before, so this is piece of cake!   
  
 Notice how the client connects to the server and constantly streams update to the client.
 
@@ -385,7 +385,9 @@ Finally we should add some table that shows our captures:
                         :input-task ""
                         :input-capture ""}))
   (render [this]
-    (let [{:keys [input-project input-task input-capture]} (om/get-state this)
+    (let [{:keys [input-project 
+                  input-task 
+                  input-capture]} (om/get-state this)
           {:keys [captures]} (om/props this)]
       (html
        [:div
@@ -424,5 +426,3 @@ Finally we should add some table that shows our captures:
 Now we should see the captures that we added before. Now let's check if this data synchronises to other browser clients. Therefore we open an new browser window at [http://localhost:3449](http://localhost:3449) where we can observe the newly added captures.
 
 And that's it, we have a small prototype with just some lines of code with a fully functional backend, that replicates all data to clients, provides realtime updates and supports offline capabilities.
-
-(Maybe some final words and replikativ future ...)
