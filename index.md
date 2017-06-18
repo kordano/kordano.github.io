@@ -6,7 +6,7 @@ introduction: I am a software developer writing about web technologies
 picture: true
 ---
  <ul>
-{% for post in site.posts offset: 0 limit: 10 %}
+{% for post in site.posts offset: 0 limit: 5 %}
   <li class="index-posts">
   <div class="index-post">
     <a class="index-post-item" href="{{ post.url }}">

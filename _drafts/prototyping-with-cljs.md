@@ -5,14 +5,14 @@ introduction: A short trip through web development via Om, a beautiful React-wra
 ---
 Before the rise of single page and mobile applications all of the state was handled on the server side by interacting directly with the databases. For the single page applications we need another layer of abstraction to coordinate the state, maybe some REST API that handles all the relevant state changes between clients and databases. That pattern complected the development process in many ways and this makes it rather difficult to reason about a product.   
 
-In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. As view representation we will use a React-wrapper in Clojurescript and as state management we will use [replikativ](http://replikativ.io), a synchronisation infrastructure, that a good [friend](https://whilo.github.io/) and I built over the last years, written in both Clojure and Clojurescript. I'll write about replikativ in general in another blog post because in this post I want to focus on web app prototyping.   
+In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. As view representation we will use a React-wrapper in Clojurescript and as state management we will use [replikativ](http://replikativ.io), a lean synchronisation infrastructure, that a good [friend](https://whilo.github.io/) and I built over the last years, written in both Clojure and Clojurescript. I'll write about replikativ in general in another blog post because in this post I want to focus on web app prototyping.   
 
 So, first the [prototype](#the-prototype) is described, then we will [setup](#the-setup) our environment, develop our minimalistic [backend](#the-backend) and finally build our [frontend](#the-frontend).
 
 
 # <a name="the-prototype"></a> The Prototype
 
-As a freelancing software developer, tracking time of your tasks is inevitable when you don't want to lose yourself. So, let's build something that captures the time we spend on different projects and tasks. What should it look like, you say? Well, for the prototype, let's have only small views because we want to build our app as fast and as simple as possible. Basically we want some input that capture our working time of a task at a project and we want to view the list of captured entries. Later on we might add some more features like search, sorting or project popups, but for the moment these two features, an input and a list, should suffice.  
+As a freelancing software developer, tracking time of your tasks is inevitable when you don't want to lose yourself. So, let's build something that captures the time we spend on different projects and tasks. What should it look like, you say? Well, for the prototype, let's have only small views because we want to build our app as fast and as simple as possible. Basically we want some input that capture our working time of a task at a project and we want to view the list of captured entries. Additionally we want offline capabilities and real time updates from other clients. Later on we might add some more features like search, sorting or project popups, but for the moment these two view elements, an input and a list, should suffice.     
 
 Now let's start with the setup.
 
