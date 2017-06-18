@@ -3,13 +3,12 @@ layout: post
 title: Rapid Web App Prototyping with Clojurescript
 introduction: A short trip through web development via Om, a beautiful React-wrapper in Clojurescript, and replikativ, a simple synchronisation infrastructure
 ---
-Before the rise of single page and mobile applications all of the state was handled on the server side by interacting directly with the databases. For the single page applications we need another layer of abstraction to coordinate the state, maybe some REST API that handles all the relevant state changes between clients and databases. That pattern complected the development process in many ways and it makes it rather difficult to extend and manage a product.   
+Before the rise of single page and mobile applications all of the state was handled on the server side by interacting directly with the databases. For the single page applications we need another layer of abstraction to coordinate the state, maybe some REST API that handles all the relevant state changes between clients and databases. That pattern complected the development process in many ways and this makes it rather difficult to reason about a product.   
 
-In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. As Frontend we will use a React-wrapper in Clojurescript and as backend we will use [replikativ](http://replikativ.io), a synchronisation infrastructure written in both Clojure and Clojurescript, that I co-authored. 
+In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. As view representation we will use a React-wrapper in Clojurescript and as state management we will use [replikativ](http://replikativ.io), a synchronisation infrastructure, that a good [friend](https://whilo.github.io/) and I built over the last years, written in both Clojure and Clojurescript. I'll write about replikativ in general in another blog post because in this post I want to focus on web app prototyping.   
 
-In order to follow the steps you should be a little bit familiar with web development and Clojure.   
+So, first the [prototype](#the-prototype) is described, then we will [setup](#the-setup) our environment, develop our minimalistic [backend](#the-backend) and finally build our [frontend](#the-frontend).
 
-But first we describe a litte bit our application.
 
 # <a name="the-prototype"></a> The Prototype
 
@@ -17,9 +16,10 @@ As a freelancing software developer, tracking time of your tasks is inevitable w
 
 Now let's start with the setup.
 
+
 #  <a name="the-setup"></a> The Setup
 
-First make sure, you have everything ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using [emacs](https://www.gnu.org/software/emacs/) because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
+In order to follow the steps you should be a little bit familiar with web development and Clojure. First make sure, you have everything ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using [emacs](https://www.gnu.org/software/emacs/) because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
 
 Alright let's start by creating a new figwheel project:
 
@@ -107,7 +107,7 @@ The final project structure should look like this:
         └── core_test.clj
 ```
 
-# The Backend
+# <a name="the-backend"></a> The Backend
 
 Alright, now can start writing the server. Let's open `src/clj/stechuhr/core.clj` and start a repl-session. First we should add all our dependencies, so the head of the file might look something like:
 
@@ -161,7 +161,7 @@ Now we only need to add a main routine to start our system:
 
 That's it! We don't need anything more for the backend. Pretty nice!   
 
-# The Frontend
+# <a name="the-frontend"></a> The Frontend
 
 (Some intro to client dev ...)
 
