@@ -7,7 +7,7 @@ Before the rise of single page and mobile applications all of the state was hand
 
 In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. As view representation we will use a React-wrapper in Clojurescript and as state management we will use [replikativ](http://replikativ.io), a lean synchronisation infrastructure, that a good [friend](https://whilo.github.io/) and I built over the last years, written in both Clojure and Clojurescript. I'll write about replikativ in general in another blog post because in this post I want to focus on web app prototyping.   
 
-So, first the [prototype](#the-prototype) is described, then we will [setup](#the-setup) our environment, develop our minimalistic [backend](#the-backend) and finally build our [frontend](#the-frontend).
+So, first the [prototype](#the-prototype) is described, then we will [setup](#the-setup) our environment, develop our minimalistic [backend](#the-backend) and finally build our [frontend](#the-frontend). You may find the code for this tutorial on [github](https://github.com/kordano/stechuhr) as well as a screencast on [youtube](https://www.youtube.com/watch?v=LW8v6Cr9BcM).
 
 
 # <a name="the-prototype"></a> The Prototype
