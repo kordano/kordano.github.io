@@ -5,23 +5,21 @@ introduction: A short trip through web development via Om, a beautiful React-wra
 ---
 Before the rise of single page and mobile applications all of the state was handled on the server side by interacting directly with the databases. For the single page applications we need another layer of abstraction to coordinate the state, maybe some REST API that handles all the relevant state changes between clients and databases. That pattern complected the development process in many ways and it makes it rather difficult to extend and manage a product.   
 
-(What's replikativ? ...)
-
-(CRDTs n stuff 
-[wiki](https://en.m.wikipedia.org/wiki/Conflict-free_replicated_data_type) and [nice article about crdts](https://medium.com/@istanbul_techie/a-look-at-conflict-free-replicated-data-types-crdt-221a5f629e7e) )
-
-(REST vs replikativ ...)
-
-In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. 
-
-We will build a simple project time tracking application... (Explain more, maybe some figures about view and states...)   
+In this short guide I will show you how to build simple prototypes without the hassle of complicated server development. As Frontend we will use a React-wrapper in Clojurescript and as backend we will use [replikativ](http://replikativ.io), a synchronisation infrastructure written in both Clojure and Clojurescript, that I co-authored. 
 
 In order to follow the steps you should be a little bit familiar with web development and Clojure.   
 
+But first we describe a litte bit our application.
 
-# The Setup
+# <a name="the-prototype"></a> The Prototype
 
-First make sure, you have everyting ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using [emacs](https://www.gnu.org/software/emacs/) because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
+As a freelancing software developer, tracking time of your tasks is inevitable when you don't want to lose yourself. So, let's build something that captures the time we spend on different projects and tasks. What should it look like, you say? Well, for the prototype, let's have only small views because we want to build our app as fast and as simple as possible. Basically we want some input that capture our working time of a task at a project and we want to view the list of captured entries. Later on we might add some more features like search, sorting or project popups, but for the moment these two features, an input and a list, should suffice.  
+
+Now let's start with the setup.
+
+#  <a name="the-setup"></a> The Setup
+
+First make sure, you have everything ready for some Clojure development, mainly a recent Java version, [leiningen](https://leiningen.org) and a your prefered editor. For Clojure I'm using [emacs](https://www.gnu.org/software/emacs/) because of the nice integrations that [cider](https://github.com/clojure-emacs/cider) provides.   
 
 Alright let's start by creating a new figwheel project:
 
@@ -372,8 +370,9 @@ But can we connect to this peer? Easy! Let's go back to `src/cljs/stechuhr/core.
   (go-try S (def replikativ-state (<? S (setup-replikativ))))
   (.error js/console "Stechuhr connected ...."))
 ```
-
-We have created all necessary replikativ setup functions before, so this is piece of cake!   
+ We have created all necessary replikativ setup functions before, so this is piece of cake!   
+ 
+Notice how the client connects to the server and constantly streams update to the client.
 
 Finally we should add some table that shows our captures:
 
