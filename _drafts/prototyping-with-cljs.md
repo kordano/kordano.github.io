@@ -12,7 +12,7 @@ So, first the [prototype](#the-prototype) is described, then we will [setup](#th
 
 # <a name="the-prototype"></a> The Prototype
 
-As a freelancing software developer, tracking time of your tasks is inevitable when you don't want to lose yourself. So, let's build something that captures the time we spend on different projects and tasks. What should it look like, you say? Well, for the prototype, let's have only small views because we want to build our app as fast and as simple as possible. Basically we want some input that capture our working time of a task at a project and we want to view the list of captured entries. Additionally we want offline capabilities and real time updates from other clients. Later on we might add some more features like search, sorting or project popups, but for the moment these two view elements, an input and a list, should suffice.     
+As a freelancing software developer, tracking time of your tasks is inevitable when you don't want to lose yourself. So, let's build something that captures the time we spend on different projects and tasks. What should it look like, you say? Well, for the prototype, let's have only small views because we want to build our app as fast and as simple as possible. Basically we want some input that captures our working time of a task at a project and we want to view the list of captured entries. Additionally we want offline capabilities and real time updates from other clients. Later on we might add some more features like search, sorting or project popups, but for the moment these two view elements, an input and a list, should suffice.     
 
 Now let's start with the setup.
 
@@ -31,7 +31,7 @@ cd stechuhr
 Let's add the relevant libraries to the `:dependencies` in our `project.clj`:
 
 ```clojure
-[io.replikativ/replikativ "0.2.1"]
+[io.replikativ/replikativ "0.2.4"]
 [org.omcljs/om "1.0.0-alpha46"]
 [sablono "0.7.6"]
 [http-kit "2.2.0"]
@@ -187,6 +187,7 @@ Wait a little bit and then we can start editing `src/cljs/stechuhr/core.cljs`. A
             [superv.async :refer [S] :as sasync]
             [om.next :as om :refer-macros [defui] :include-macros true]
             [om.dom :as dom :include-macros true]
+            [taoensso.timbre :as timbre]
             [sablono.core :as html :refer-macros [html]])
   (:require-macros [superv.async :refer [go-try <? go-loop-try]]
                    [cljs.core.async.macros :refer [go-loop]]))
@@ -206,10 +207,10 @@ The streaming evaluation functions need to be defined as a hashmap:
 
 ```
 (def stream-eval-fns
-  {'add (fn [a new]
+  {'add (fn [a S new]
             (swap! a update-in [:captures] conj new)
             a)
-   'remove (fn [a new]
+   'remove (fn [a S new]
              (swap! a update-in [:captures] (fn [old] (set (remove #{new} old))))
              a)})
 ```
@@ -370,9 +371,9 @@ But can we connect to this peer? Easy! Let's go back to `src/cljs/stechuhr/core.
   (go-try S (def replikativ-state (<? S (setup-replikativ))))
   (.error js/console "Stechuhr connected ...."))
 ```
-We have created all necessary replikativ setup functions before, so this is piece of cake!   
+We have created all necessary replikativ setup functions before, so a piece of cake!   
  
-Notice how the client connects to the server and constantly streams update to the client.
+Notice how the client connects to the server and constantly updates to the client.
 
 Finally we should add some table that shows our captures:
 
