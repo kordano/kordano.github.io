@@ -207,10 +207,10 @@ The streaming evaluation functions need to be defined as a hashmap:
 
 ```
 (def stream-eval-fns
-  {'add (fn [a S new]
+  {'add (fn [S a new]
             (swap! a update-in [:captures] conj new)
             a)
-   'remove (fn [a S new]
+   'remove (fn [S a new]
              (swap! a update-in [:captures] (fn [old] (set (remove #{new} old))))
              a)})
 ```
