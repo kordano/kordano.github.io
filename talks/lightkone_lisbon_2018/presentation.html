@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Datalog meets CRDTs</title>
+<meta name="author" content="(Konrad Kühne)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="./reveal.js/css/theme/solarized.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<meta name="description" content="datahike, git-like CRDT">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Datalog meets CRDTs</h1><h2 class="author">Konrad Kühne</h2><p class="date">Created: 2018-01-17 Wed 12:29</p>
+</section>
+
+<section>
+<section id="slide-org596d51a">
+<h2 id="org596d51a">About us</h2>
+<div class="column" style="float:left; width:50%">
+<p width="400">
+<img src="./christian.png" alt="christian.png" width="400" />
+Christian Weilbach, Master Student in AI
+</p>
+</div>
+<div class="column" style="float:left; width:50%">
+<p width="400">
+<img src="./konrad.jpg" alt="konrad.jpg" width="400" /> 
+Konrad Kühne, Software Architect
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgf6856a0">
+<h2 id="orgf6856a0">Motivation</h2>
+<ul>
+<li>replikativ: replication system based on CRDTs written in Clojure</li>
+<li>mature building blocks: persistence, communication, cryptography</li>
+<li>goal: opensource, x-runtime, functional, distributed database with query engine and CRDTs</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org76a6486">
+<h2 id="org76a6486">Datahike</h2>
+<ul>
+<li>combination of datalog and hitchhiker tree</li>
+<li>operational local prototype</li>
+<li>collaboration with datsys project</li>
+<li>central tripple-element storage</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org86b49aa">
+<h2 id="org86b49aa">Datalog</h2>
+<ul>
+<li>declarative logic programming language</li>
+<li>similar to SQL</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org4858bb1">
+<h2 id="org4858bb1">Hitchhiker Tree</h2>
+<ul>
+<li>query performance of B+ tree</li>
+<li>write performance of append-only log</li>
+<li>convenience of functional, persistent datastructure</li>
+<li>unfortunately no scientific research</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org9d738b8">
+<h2 id="org9d738b8">Future Building Blocks</h2>
+<ul>
+<li>persistent storage (konserve)</li>
+<li>transactions (hitchhiker tree)</li>
+<li>tree replication (index-sync)</li>
+<li>CRDTs (replikativ)</li>
+<li>datalog query engine (datascript)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgd167bd9">
+<h2 id="orgd167bd9">Test Environment</h2>
+<ul>
+<li>databases: datahike, datomic, datascript</li>
+<li>in-memory only</li>
+<li>100K entries</li>
+<li>5 queries with increasing complexity</li>
+<li>on local machine</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org0e2085f">
+<h2 id="org0e2085f">Test Results</h2>
+<p>
+Average execution time for basic datalog queries
+</p>
+
+<div class="figure">
+<p><img src="./perf.png" alt="perf.png" width="600" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgbe9249d">
+<h2 id="orgbe9249d">Roadmap and further Ideas</h2>
+<ul>
+<li>distribution by tree synchronisation</li>
+<li>CRDT mapping to indices</li>
+<li>datalog CRDT integration</li>
+<li>query caching strategies</li>
+<li>datalog on blockchain (in etherum smart contracts)</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 't',
+rollingLinks: true,
+keyboard: true,
+overview: true,
+margin: 0.10,
+minScale: 0.60,
+maxScale: 1.20,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
