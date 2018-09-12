@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>datahike - lightweight datalog</title>
+<meta name="author" content="(Konrad Kühne)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/league.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<meta name="description" content="datahike, git-like CRDT">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">datahike - lightweight datalog</h1><h2 class="author">Konrad Kühne</h2><h2 class="date">Clojure Meetup Berlin 12.9.2018</h2><p class="date">Created: 2018-09-12 Wed 21:42</p>
+</section>
+
+<section>
+<section id="slide-org358195e">
+<h2 id="org358195e">About</h2>
+<div class="column" style="float:left; width:50%">
+
+<div class="figure">
+<p><img src="./konrad.jpg" alt="konrad.jpg" width="400" />
+</p>
+</div>
+</div>
+<div class="column" style="float:left; width:50%">
+<ul width="400">
+<li>Clojure enthusiast since 2012</li>
+<li>Co-author of replikativ libraries</li>
+<li>CEO and Co-Founder of lambdaforge</li>
+<li>Clojure consulting since 2016</li>
+
+</ul>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orga98c56c">
+<h2 id="orga98c56c">Overview</h2>
+<ul>
+<li>Motivation</li>
+<li>Datalog</li>
+<li>Datahike</li>
+<li>Live-Coding</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc2fd05c">
+<h2 id="orgc2fd05c">Motivation</h2>
+<ul>
+<li>replikativ: replication system based on CRDTs written in Clojure</li>
+<li>mature building blocks: persistence, communication, cryptography</li>
+<li>goal: opensource, x-runtime, functional, distributed database with query engine and CRDTs</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc06dd4e">
+<h2 id="orgc06dd4e">Datalog</h2>
+<ul>
+<li>declarative logic programming language</li>
+<li>subset of Prolog</li>
+<li>relational Algebra</li>
+<li>similar to SQL</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #6272a4;">[</span><span style="color: #8be9fd;">:find</span> ?e 
+ <span style="color: #8be9fd;">:where</span> 
+ <span style="color: #6272a4;">[</span>?e <span style="color: #8be9fd;">:name</span> <span style="color: #f1fa8c;">"konrad"</span><span style="color: #6272a4;">]]</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgea0f490">
+<h2 id="orgea0f490">Datahike</h2>
+<ul>
+<li>combination of datascript and hitchhiker tree</li>
+<li>durable, immutable triplestore</li>
+<li>supports most datomic API calls</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd9e6183">
+<h3 id="orgd9e6183">DataScript</h3>
+<ul>
+<li>in-memory datalog implementation for Clojure/Script</li>
+<li>mature (4 years+ development)</li>
+<li>faster in memory query engine than Datomic</li>
+<li>supports a lot of Datomic's API:
+<ul>
+<li>pull-expressions</li>
+<li>transactor functions</li>
+
+</ul></li>
+<li>but allows partial schemas</li>
+
+</ul>
+
+</section>
+<section id="slide-orgbe76f6d">
+<h3 id="orgbe76f6d">Hitchhiker Tree</h3>
+<ul>
+<li>fractal tree by David Greenberg</li>
+<li>combination B+ tree and append-only log</li>
+<li>good read and write performance</li>
+<li>convenience of functional, persistent datastructure</li>
+<li>unfortunately no scientific research</li>
+
+</ul>
+
+</section>
+<section id="slide-org6f434ae">
+<h3 id="org6f434ae">Performance</h3>
+<p>
+Average execution time for basic datalog queries
+</p>
+
+<div class="figure">
+<p><img src="./perf.png" alt="perf.png" width="600" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgdabab85">
+<h3 id="orgdabab85">Roadmap and further Ideas</h3>
+<ul>
+<li>Clojurescript Port (in progress)</li>
+<li>Single transactor replication with dat (in progress)</li>
+<li>datalog on blockchain with datahike underneath (working prototype)</li>
+<li>CRDT mapping to indices</li>
+<li>datalog CRDT integration</li>
+<li>query caching strategies</li>
+<li>full-text index via Lucene</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org28a9f65">
+<h2 id="org28a9f65">Live-Coding</h2>
+<ul>
+<li>Invoicing example</li>
+<li>datahike as database</li>
+<li>pdf output with latex and selmer templating</li>
+<li><a href="https://gitlab.com/replikativ/datahike-invoice">https://gitlab.com/replikativ/datahike-invoice</a></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org91bac4d">
+<h2 id="org91bac4d">References</h2>
+<ul>
+<li>replikativ: <a href="http://replikativ.io">http://replikativ.io</a></li>
+<li>Datahike: <a href="https://github.com/replikativ/datahike">https://github.com/replikativ/datahike</a></li>
+<li>DataScript internals: <a href="http://tonsky.me/blog/datascript-internals/">http://tonsky.me/blog/datascript-internals/</a></li>
+<li>Hitchhiker-Tree: <a href="https://github.com/datacrypt-project/hitchhiker-tree">https://github.com/datacrypt-project/hitchhiker-tree</a></li>
+<li>Hitchhiker-Tree talk: <a href="https://www.youtube.com/watch?v=jdn617M3-P4">https://www.youtube.com/watch?v=jdn617M3-P4</a></li>
+<li>dat project: <a href="https://datproject.org/">https://datproject.org/</a></li>
+<li>CRDTs: <a href="https://hal.inria.fr/inria-00609399v1/document">https://hal.inria.fr/inria-00609399v1/document</a></li>
+<li>datahike benchmark: <a href="https://github.com/kordano/datahike-benchmark">https://github.com/kordano/datahike-benchmark</a></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 't',
+rollingLinks: true,
+keyboard: true,
+overview: true,
+margin: 0.10,
+minScale: 0.60,
+maxScale: 1.20,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
