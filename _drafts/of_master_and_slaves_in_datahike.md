@@ -6,7 +6,7 @@ introduction: A simple peer-to-peer replication setup for datahike
 
 With requirements for [offline](http://offlinefirst.org/) capabilities and fault tolerance modern database management systems thrive for mechanisms that support simple replications. By using descentralized [peer-to-peer systems](https://ieeexplore.ieee.org/document/990434/) and replicate only files we can easily achieve a simple replication solution without tempering with databases itself. Obviously as a downside we don't have any conflict resolution at the heart if data diverge on a network failure.   
 The following post is an attempt to achieve replication with as few hassle as possible. Further information about the underlying database and synchronization platform are not described here, but useful pointers for a start are given. All in all this is a very technical post, so one will see a lot of code fragments to toy with. Despite a recent upcoming of [language irritations](https://bugs.python.org/issue34605) in the python community against master/slave terminology we are using this to distinguish the different databases.   
-Although the base idea can be used for most of the databases and peer-to-peer technologies we are using our own database [datahike](https://github.com/replikativ/datahike) and as peer-to-peer platform we try the [dat project](https://datproject.org/).
+Although the base idea can be used for most of the databases and peer-to-peer technologies we are using [Clojure](https://clojure.org/) [datahike](https://github.com/replikativ/datahike) built by yours truly as the database and [dat project](https://datproject.org/) as the peer-to-peer platform.
 
 # Datahike
 
