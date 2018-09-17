@@ -7,7 +7,6 @@ introduction: A simple peer-to-peer replication setup for datahike
 With requirements for [offline](http://offlinefirst.org/) capabilities and fault tolerance modern database management systems thrive for mechanisms that support simple replications. By using descentralized [peer-to-peer systems](https://ieeexplore.ieee.org/document/990434/) and replicate only files we can easily achieve a simple replication solution without tempering with databases itself. Obviously as a downside we don't have any conflict resolution at the heart if data diverge on a network failure.   
 The following post is an attempt to achieve replication with as few hassle as possible. Further information about the underlying database and synchronization platform are not described here, but useful pointers for a start are given. All in all this is a very technical post, so one will see a lot of code fragments to toy with. Despite a recent upcoming of [language irritations](https://bugs.python.org/issue34605) in the python community against master/slave terminology we are using this to distinguish the different databases.   
 Although the base idea can be used for most of the databases and peer-to-peer technologies we are using [Clojure](https://clojure.org/) [datahike](https://github.com/replikativ/datahike) built by yours truly as the database and [dat project](https://datproject.org/) as the peer-to-peer platform.
-
 # Datahike
 
 What is **datahike** you say?   
@@ -36,7 +35,27 @@ Add the following to the `:dependencies` section in your `project.clj`.
 [juxt/dirwatch "0.2.3"]
 ```
 
-Now we can fire up a repl and start fooling around. First we initialize an empty datahike instance within our local folder `/tmp/master-dat`
+Now we can fire up a repl and start fooling around. 
+
+```clojure
+cd datahike-replication
+lein repl
+=> 
+nREPL server started on port 49731 on host 127.0.0.1 - nrepl://127.0.0.1:49731
+REPL-y 0.3.7, nREPL 0.2.13
+Clojure 1.9.0
+Java HotSpot(TM) 64-Bit Server VM 1.8.0_144-b01
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+    Exit: Control+D or (exit) or (quit)
+ Results: Stored in vars *1, *2, *3, an exception in *e
+
+user=> 
+```
+
+First we initialize an empty datahike instance within our local folder `/tmp/master-dat`
 
 ```clojure
 (require '[datahike.api :as d])
@@ -172,9 +191,11 @@ The updates should now be in the database whenever we transact something in the 
 ;; => #{["Charlie"] ["Dorothy"] ["Alice"] ["Eve"] ["Bob"]}
 ```
 Wait a second or two for dat to synchronize the data. Then we have to check the connection in the slave state, as it is reset every time dat synchronizes new data.
-```
+```clojure
 (get-all-names (:conn @slave-state))
 ;; => #{["Charlie"] ["Dorothy"] ["Alice"] ["Eve"] ["Bob"]}
 ```
 Awesome, now we have distributed database.
 
+# Conclusion
+**TODO** quick solution, only one-way replication, good for scaling queries, backups, not too efficient, plans for in-db solution for index-replication only, 
