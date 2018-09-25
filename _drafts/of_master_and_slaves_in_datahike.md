@@ -2,18 +2,28 @@
 layout: post
 title: Of master and slaves in datahike
 introduction: A simple peer-to-peer replication setup for datahike
+tags: [clojure, datahike, dat, replication]
 ---
 
 With requirements for [offline](http://offlinefirst.org/) capabilities and fault tolerance modern database management systems thrive for mechanisms that support simple replications. By using descentralized [peer-to-peer systems](https://ieeexplore.ieee.org/document/990434/) and replicate only files we can easily achieve a simple replication solution without tempering with databases itself. Obviously as a downside we don't have any conflict resolution at the heart if data diverge on a network failure.   
 The following post is an attempt to achieve replication with as few hassle as possible. Further information about the underlying database and synchronization platform are not described here, but useful pointers for a start are given. All in all this is a very technical post, so one will see a lot of code fragments to toy with. Despite a recent upcoming of [language irritations](https://bugs.python.org/issue34605) in the python community against master/slave terminology we are using this to distinguish the different databases.   
-Although the base idea can be used for most of the databases and peer-to-peer technologies we are using [Clojure](https://clojure.org/) [datahike](https://github.com/replikativ/datahike) built by yours truly as the database and [dat project](https://datproject.org/) as the peer-to-peer platform.
+Although the base idea is very simple it can only be adapted with databases that meet certain criteria. Firstly data updates must be operated atomically on a single file, so that the peer-to-peer system can propagate individual updates. Secondly most database systems use memory mapped files and mutate data randomly. This way we don't get any efficient data deltas and the peer-to-peer system has to calculate the changes at high costs. With the efficient hitchhiker-tree data structure at the heart of datahike we can write deltas efficiently into the file system.    
+
+
+TODO: mention also ipfs
+
+TODO: example repo
+
+
 # Datahike
 
 What is **datahike** you say?   
 **TODO** add short description about datahike: triple store, datomic api, plans for introductionary screencast/post
 
 # Dat Project
-**TODO** add short description about dat project: p2p project, simple file API, unsatisfying js api, only one platform, one-way replication, 
+**TODO** add short description about dat project: p2p project, simple file API, unsatisfying js api, only one platform, one-way replication,
+
+
 
 # Local Setup
 
@@ -35,12 +45,12 @@ Add the following to the `:dependencies` section in your `project.clj`.
 [juxt/dirwatch "0.2.3"]
 ```
 
-Now we can fire up a repl and start fooling around. 
+Now we can fire up a repl and start fooling around.
 
 ```clojure
 cd datahike-replication
 lein repl
-=> 
+=>
 nREPL server started on port 49731 on host 127.0.0.1 - nrepl://127.0.0.1:49731
 REPL-y 0.3.7, nREPL 0.2.13
 Clojure 1.9.0
@@ -52,7 +62,7 @@ Java HotSpot(TM) 64-Bit Server VM 1.8.0_144-b01
     Exit: Control+D or (exit) or (quit)
  Results: Stored in vars *1, *2, *3, an exception in *e
 
-user=> 
+user=>
 ```
 
 First we initialize an empty datahike instance within our local folder `/tmp/master-dat`
@@ -75,7 +85,7 @@ Now we add some initial data
 @(d/transact master-conn [{:db/id 1 :name "Alice" :age 33}
                    {:db/id 2 :name "Bob" :age 37}
                    {:db/id 3 :name "Charlie" :age 55}])
- 
+
 ```
 
 Let's check if everything is transacted correctly.
@@ -84,7 +94,7 @@ Let's check if everything is transacted correctly.
 (d/q '[:find ?n
      :where [?e :name ?n]]
      @master-conn)
-     
+
 ;; => #{["Charlie"] ["Alice"] ["Bob"]}
 ```
 
@@ -134,7 +144,7 @@ Now everything is setup and we can check out the replicated datahike.
 (def slave-conn (d/connect slave-uri))
 
 (get-all-names slave-conn)
-     
+
 ;; => #{["Charlie"] ["Alice"] ["Bob"]}
 ```
 
@@ -176,7 +186,7 @@ Alright, now we have something. Next, let's update the connection whenever somet
   (prn "File changed:" (.getPath (:file file)))
   (swap! state assoc :conn (d/connect slave-uri)))
 
-(swap! slave-state assoc :watcher (watch-dir 
+(swap! slave-state assoc :watcher (watch-dir
                                    (partial on-meta-change slave-state)
                                    slave-meta-dir))
 ```
@@ -186,7 +196,7 @@ The updates should now be in the database whenever we transact something in the 
 ```clojure
 @(d/transact master-conn [{:db/id 5 :name "Eve"}])
 
-     
+
 (get-all-names master-conn)
 ;; => #{["Charlie"] ["Dorothy"] ["Alice"] ["Eve"] ["Bob"]}
 ```
@@ -198,4 +208,4 @@ Wait a second or two for dat to synchronize the data. Then we have to check the 
 Awesome, now we have distributed database.
 
 # Conclusion
-**TODO** quick solution, only one-way replication, good for scaling queries, backups, not too efficient, plans for in-db solution for index-replication only, 
+**TODO** quick solution, only one-way replication, good for scaling queries, backups, not too efficient, plans for in-db solution for index-replication only,
