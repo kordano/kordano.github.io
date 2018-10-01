@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Journal
-subtitle: Recent Articles
+title: Notes
+subtitle: Thoughts and Ideas
 ---
  
 <ul>

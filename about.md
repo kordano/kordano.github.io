@@ -5,7 +5,7 @@ subtitle: About Me
 ref: about
 picture: true
 ---
-I'm CEO and data engineer at [lambdaforge](http://lambdaforge.io) a consultancy specialized in **information system engineering** based in Heidelberg, Germany.  
+I'm CEO and data engineer at [lambdaforge](http://lambdaforge.io), a consultancy specialized in **information system engineering** based in Heidelberg, Germany.  
 
 My primary focus lies on designing useful **data models** and robust **system architectures** with simple **deployment solutions**, chosing the best **databases** for the tasks, and building lightweight and secure **web APIs** for mobile and web clients.   
 
