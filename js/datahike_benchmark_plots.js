@@ -4,7 +4,7 @@ function createBarChart(canvasID, graphData, yAxisType, yAxisTitle, xAxisTitle, 
 
   return new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: 'line',
 
     // The data for our dataset
     data: {
@@ -35,6 +35,9 @@ function createBarChart(canvasID, graphData, yAxisType, yAxisTitle, xAxisTitle, 
       scales: {
         yAxes: [{
           type: yAxisType,
+          ticks: {
+            autoSkip: true,
+          },
           scaleLabel: {
             labelString: yAxisTitle,
             display: true
@@ -42,8 +45,8 @@ function createBarChart(canvasID, graphData, yAxisType, yAxisTitle, xAxisTitle, 
         }],
         xAxes: [{
           scaleLabel: {
-            type: "linear",
             labelString: xAxisTitle,
+            type: "linear",
             display: true
           }
         }],
@@ -60,7 +63,7 @@ function createBarChart(canvasID, graphData, yAxisType, yAxisTitle, xAxisTitle, 
 }
 
 var insertionData = [[13715.26422, 133053.05744, 1351278.91231], [503.276519, 2882.789454, 7001.234535], [851.469728, 2299.92175, 5901.234535]]
-var insertionChart = createBarChart("insertionChart", insertionData, "logarithmic", "Execution time in milliseconds", "Sample size", "Data Insertion Performance")
+var insertionChart = createBarChart("insertionChart", insertionData, "linear", "Execution time in milliseconds", "Sample size", "Data Insertion Performance")
 
 var queryData1 = [[62.566438, 344.492521, 490.123], [104.443381, 95.701976, 102.234461], [22.049357, 22.313238, 23.112649]]
 var queryChart1 = createBarChart("queryChart1", queryData1, "linear", "Execution time in microseconds", "Sample size", "Basic indexed query")

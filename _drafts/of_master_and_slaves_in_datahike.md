@@ -5,21 +5,19 @@ introduction: A simple peer-to-peer replication setup for datahike
 tags: [clojure, datahike, dat, replication]
 ---
 
-With requirements for [offline](http://offlinefirst.org/) capabilities and fault tolerance modern database management systems thrive for mechanisms that support simple replications. By using descentralized [peer-to-peer systems](https://ieeexplore.ieee.org/document/990434/) and replicate only files we can easily achieve a simple replication solution without tempering with databases itself. Obviously as a downside we don't have any conflict resolution at the heart if data diverge on a network failure.   
+With requirements for [offline](http://offlinefirst.org/) capabilities and fault tolerance modern database management systems thrive for mechanisms that support simple replications. By using decentralized [peer-to-peer systems](https://ieeexplore.ieee.org/document/990434/) and replicate only files we can easily achieve a simple replication solution without tempering with databases itself. Obviously as a downside we don't have any conflict resolution at the heart if data diverges on a network failure.   
 The following post is an attempt to achieve replication with as few hassle as possible. Further information about the underlying database and synchronization platform are not described here, but useful pointers for a start are given. All in all this is a very technical post, so one will see a lot of code fragments to toy with. Despite a recent upcoming of [language irritations](https://bugs.python.org/issue34605) in the Python community against master/slave terminology we are using this to distinguish the different databases.   
-Although the base idea is very simple it can only be adapted with databases that meet certain criteria. Firstly data updates must be operated atomically on a single file, so that the peer-to-peer system can propagate individual updates. Secondly most database systems use memory mapped files and mutate data randomly. This way we don't get any efficient data deltas and the peer-to-peer system has to calculate the changes at high costs. Luckily we have developed a database that meets all the requirements for this use case: datahike. As peer-to-peer solution we choose the dat project with its simple API and open protocol.
+Although the base idea is very simple it can only be adapted with databases that meet certain criteria. Firstly data updates must be operated atomically on a single file, so that the peer-to-peer system can propagate individual updates. Secondly most database systems use memory mapped files and mutate data randomly. This way we don't get any efficient data deltas and the peer-to-peer system has to calculate the changes at high costs. Luckily we have developed a database that meets the requirements for this use case: datahike. As peer-to-peer solution we choose the dat project with its simple API and open protocol.
 
 # Datahike
-[datahike](https://github.com/replikativ/datahike) is a triple store combining a fork of [datascript](https://github.com/tonsky/datascript) and the [hitchhiker tree](https://github.com/datacrypt-project/hitchhiker-tree). With datascript we have access to a powerful query-engine that implements most of the datomic API. An in-depth introduction to datalog-querying and datahike is planned for another blogpost and screencast.
-
-**TODO** maybe some more informations?
+[datahike](https://github.com/replikativ/datahike) is a triple store combining a fork of [datascript](https://github.com/tonsky/datascript) and the [hitchhiker tree](https://github.com/datacrypt-project/hitchhiker-tree). With datascript we have access to a powerful query-engine that implements most of the datomic API. An in-depth introduction to datalog-querying and datahike is planned for another blog post and screen cast.
 
 # Dat Project
-The [dat project](https://datproject.org/) is a nonprofit data sharing peer-to-peer protocol for building distributed applications. Currently dat is primarily implemented in JavaScript with some API for high and low-level data synchronization. For the moment we will use only the commandline tools where we only have one-way data replication with one master data silo and many slave data silos. For the future we plan to implement a two way replication but it takes a little bit more finesse handling the conflict resolution on network faults.
+The [dat project](https://datproject.org/) is a nonprofit data sharing peer-to-peer protocol for building distributed applications. Currently dat is primarily implemented in JavaScript with some API for high and low-level data synchronization. For the moment we will use only the command line tools where we only have one-way data replication with one master data silo and many slave data silos. For the future we plan to implement a two way replication but it takes a little bit more finesse handling the conflict resolution on network faults.
 
 # Awesome Coding
 
-Ok, enough of the theoretical jibber jabber. Let's code something. First make sure you have dat installed. See the official [docs](https://docs.datproject.org/install) for further instructions. Also as we are using [Clojure](https://clojure.org/) , you need the JVM (check your operating system for Java options) and [leiningen](https://leiningen.org/) in order to execute the code. If you don't want to type you may find the code for all of this [here](https://github.com/kordano/datahike-sync): 
+OK, enough of the theoretical jibber jabber. Let's code something. First make sure you have dat installed. See the official [docs](https://docs.datproject.org/install) for further instructions. Also as we are using [Clojure](https://clojure.org/) , you need the JVM (check your operating system for Java options) and [leiningen](https://leiningen.org/) in order to execute the code. If you don't want to type you may find the code for all of this [here](https://github.com/kordano/datahike-sync): 
 
 Let's start our project from scratch:
 
@@ -71,9 +69,10 @@ Now we add some initial data
 
 
 ```clojure
-@(d/transact master-conn [{:db/id 1 :name "Alice" :age 33}
-                   {:db/id 2 :name "Bob" :age 37}
-                   {:db/id 3 :name "Charlie" :age 55}])
+@(d/transact master-conn 
+             [{:db/id 1 :name "Alice" :age 33}
+              {:db/id 2 :name "Bob" :age 37}
+              {:db/id 3 :name "Charlie" :age 55}])
 
 ```
 
@@ -81,7 +80,7 @@ Let's check if everything is transacted correctly.
 
 ```clojure
 (d/q '[:find ?n
-     :where [?e :name ?n]]
+       :where [?e :name ?n]]
      @master-conn)
 
 ;; => #{["Charlie"] ["Alice"] ["Bob"]}
@@ -125,7 +124,7 @@ cd /tmp/slave-dat
 dat sync
 ```
 
-Now everything is setup and we can check out the replicated datahike.
+Now everything is set up and we can check out the replicated datahike instance.
 
 ```clojure
 (def slave-dir "/tmp/slave-dat")
@@ -137,7 +136,7 @@ Now everything is setup and we can check out the replicated datahike.
 ;; => #{["Charlie"] ["Alice"] ["Bob"]}
 ```
 
-With this setup we have cloned the data once but updates through the syncing are not realized in the datahike connection. Let's check this out by adding something to the master database.
+We have cloned the data once but updates through the syncing are not realized in the datahike connection. Let's check this out by adding something to the master database.
 
 ```clojure
 @(d/transact master-conn [{:db/id 4 :name "Dorothy"}])
@@ -147,14 +146,14 @@ With this setup we have cloned the data once but updates through the syncing are
 
 ```
 
-If you look at the terminal where the slave synchronizing is happening you may see some updates coming through. Let's check the current slave-connection
+If you look at the terminal process where the slave synchronizing is happening you may see some updates coming through. Now let's have a look at the slave-connection:
 
 ```clojure
 (get-all-names slave-conn)
 ;; => #{["Charlie"] ["Alice"] ["Bob"]}
 ```
 
-Tough luck. Nothing happend. The datahike in memory index is not in sync. We need to re-establish the local datahike connection in order to get the updates in memory.
+Tough luck. Nothing happened. The datahike in-memory index is not in sync. We need to re-establish the local datahike connection in order to get the updates in memory.
 
 ```clojure
 (def slave-conn (d/connect slave-uri))
@@ -197,7 +196,4 @@ Awesome, now we have distributed database.
 
 # Conclusion
 All in all we have a pretty quick solution for simple data replication without typing any synchronization code. Using multiple slaves we may scale our database reads and replicating to other machines we may have a simple backup solution. But we only have a one-way synchronization, so updates from other clients are not taken into account.   
-As for datahike itself we at lambdaforge are planning to integrate efficient index-replication based on dat providing simple APIs both on the JVM and in the JavaScript environment. 
-
-**TODO** maybe some further infos about next datahike steps? or better in datahike intro post?
-**TODO** add links and references
+As for datahike itself we at [lambdaforge](http://lambdaforge.io) are planning to integrate efficient index-replication based on dat providing simple APIs both on the JVM and in the JavaScript environment. Also check here for my blog post about introduction to datalog with datahike in a couple of weeks.

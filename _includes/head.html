@@ -4,15 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-  <title>
-    {% if page.title %} {{ page.title }}
-    {% else %} {{ site.title }}
-    {% endif %}
-  </title>
-  <meta name="description" content="{{ site.description }}">
-  <meta name="viewport" content="width=device-width">
-  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="user-scalntent="index, follow">
   {% feed_meta %}
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/ionicons.min.css">
@@ -21,7 +13,8 @@
 <body>
 <nav class="nav">
   <a class="{% if page.url == '/' %} active {% endif %}"  href="/">Home</a>
-  <a class="{% if page.url == '/journal.html' %} active {% endif %}"  href="/journal">Journal</a>
+  <a class="{% if page.url == '/notes.html' %} active {% endif %}"  href="/notes">Notes</a>
+  <a class="{% if page.url == '/talks.html' %} active {% endif %}"  href="/talks">Talks</a>
   <a class="{% if page.url == '/about.html' %} active {% endif %}"  href="/about">About</a>
   <a class="{% if page.url == '/imprint.html' %} active {% endif %}"  href="/imprint">Impressum</a>
 </nav>

@@ -2,7 +2,7 @@
 layout: default
 title: Konrad Kühne
 subtitle: Greetings, my name is Konrad!
-introduction: I am a software developer writing about web technologies
+introduction: Welcome to a collection of my thoughts
 picture: true
 ---
  <ul>

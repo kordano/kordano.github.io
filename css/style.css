@@ -488,6 +488,14 @@ table.customers-table ul li:before {
     margin-top: 1em;
 }
 
+.nav a {
+    color: #090909;
+}
+
+.nav a:hover  {
+    border-bottom: 2px solid  #139cfc;
+}
+
 .nav a.active {
     border-bottom: 2px solid  #139cfc;
 }
