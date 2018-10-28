@@ -1,48 +1,11 @@
-/* GLOBAL RESET */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline; }
+---
+---
+// base
+@import 'colors';
+@import 'reset';
+@import 'nav';
 
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-    display: block; }
 
-body {
-    line-height: 1; }
-
-ol, ul {
-    list-style: none; }
-
-blockquote, q {
-    quotes: none; }
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-              content: '';
-              content: none; }
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0; }
-
-/* GLOBAL SETTINGS */
 
 /* latin-ext */
 @font-face {
@@ -95,6 +58,8 @@ table {
 
 
 @import url("https://fonts.googleapis.com/css?family=Dosis:400,500,600");
+
+
 ._center {
     margin-left: auto;
     margin-right: auto; }
@@ -153,8 +118,8 @@ html, body {
     min-width: 320px; }
 
 body {
-    color: #e6ebe0;
-    background-color: #e94c3d;
+    color: $primary-color;
+    background-color: $primary-bg-color;
     background-repeat: no-repeat;
     background-position: center 150px;
     background-size: cover;
@@ -173,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 2.2rem;
-    color: #e6ebe0;
+    color: $primary-color;
 }
 
 h2 {
@@ -195,15 +160,19 @@ strong {
 }
 
 a {
-    color: #f4f1bb;
-    border-bottom: 2px solid #e94c3d;
-    transition: color .2s ease-in-out; }
+    color: $primary-color;
+    border-bottom: 2px solid $primary-color;
+    transition: color .2s ease-in-out;
+}
+
 a:hover {
-    border-bottom: 2px solid  #f4f1bb;
+    color: $secondary-color;
+    border-bottom: 2px solid  $secondary-color;
 }
 
 ul, ol {
-    margin-left: 2em; }
+    margin-left: 2em;
+}
 
 h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + *,
 p + p,
@@ -240,7 +209,16 @@ section + section {
 
 .section-header {
     text-align: center;
-    margin-bottom: 1.5em; }
+    margin-bottom: 1.5em;
+
+
+}
+
+.post-intro {
+    color: $primary-color;
+}
+
+
 .section-header > p {
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -248,15 +226,18 @@ section + section {
 .section-header h2 {
     display: inline-block;
     font-size: 3em;
-    position: relative; }
+    position: relative;
+
+
+}
 .section-header h2:after {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -.125em;
+    bottom: -.05em;
     width: 100%;
     content: "";
-    background: #e6ebe0;
+    background: $secondary-color;
     height: 3px;
     border-radius: 25px; }
 
@@ -281,15 +262,8 @@ section + section {
 .contact-section {
     padding: 3em 0;
     border-top: 1px solid #c7d9f2;
-    border-bottom: 1px solid #c7d9f2; }
-
-ul.nav-list {
-    margin-top: 2em;
-    margin-bottom: 2em;
-    margin-left: 1em;
-    margin-right: 1em;
-    list-style: none; }
-
+    border-bottom: 1px solid #c7d9f2;
+}
 .card {
     /* border-radius: 5px; */
     padding: 2em;
@@ -299,109 +273,28 @@ ul.nav-list {
     position: relative; }
 .card > .card-header {
     margin-bottom: 2em;
-    color: #e6ebe0;
+    color: $secondary-color; 
     text-align: center; }
 .card > .card-header img.avatar {
     width: 128px;
     height: 128px;
     border-radius: 50%;
 
-    border: 5px solid #f4f1bb; }
+    border: 0px solid $primary-color;
+}
 .card > .card-header i.avatar {
     font-size: 128px;
     line-height: 1; }
 .card > .card-header p {
     margin-top: 0;
     font-style: italic;
-    color: #e6ebe0;
+    color: $primary-color;
 }
+
 .card table {
     border-collapse: collapse;
-    width: 100%; }
-.card tr {
-    padding: .5em 1em;
-    color: #4A4A4A; }
-.card td {
-    border-bottom: 1px dotted #D8D8D8;
-    vertical-align: top;
-    padding: .5em .5em; }
-.card td:first-of-type {
-    color: #78C6FD;
-    text-align: center; }
-.card td:nth-of-type(2) {
-    font-weight: 500; }
-
-.postcard {
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 2em;
-    border: 1px solid #dce7f7;
-    border: 1px solid #c7d9f2;
-    box-shadow: 0px 5px 10px rgba(122, 133, 166, 0.1);
-    position: relative;
-    font-size: 1.4rem; }
-@media (min-width: 640px) {
-    .postcard {
-        font-size: inherit; } }
-.postcard .table-col:first-of-type {
-    padding-right: 2em; }
-.postcard .table-col:last-of-type {
-    border-left: 1px solid #d2cfd2;
-    padding-left: 2em;
-    padding-bottom: 4em; }
-.postcard .table-col:last-of-type p {
-    border-bottom: 1px dotted #d2cfd2; }
-.postcard p + p {
-    margin-top: 0; }
-.postcard .stamp {
-    width: 64px;
-    height: 64px;
-    margin-left: auto;
-    margin-right: 0;
-    border: 1px dotted #d2cfd2;
-    margin-bottom: 2em; }
-.postcard .postcard-heading {
-    display: inline-block;
-    position: relative; }
-.postcard .postcard-heading:after {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -.5em;
     width: 100%;
-    content: "";
-    background: #78C6FD;
-    height: 3px;
-    border-radius: 25px; }
-.postcard > .contact-button {
-    position: absolute;
-    right: 25px;
-    bottom: 0;
-    transform: translateY(50%); }
-
-.customer-card {
-    border: 1px solid #CFD4E6;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    padding: 15px;
-    background-color: #fff;
-    font-size: 1.6rem; }
-.customer-card > header {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(207, 212, 230, 0.4); }
-.customer-card + .customer-card {
-    margin-top: 2em; }
-.customer-card ul {
-    list-style: none; }
-.customer-card ul li ~ li {
-    margin-top: 0; }
-.customer-card ul li {
-    position: relative; }
-.customer-card ul li:before {
-    position: absolute;
-    content: "-";
-    left: -20px; }
+}
 
 .card-item {
     display: inline-block;
@@ -437,43 +330,54 @@ button:active,
 .button:active {
     background: #2da6fc; }
 
-table.customers-table {
-    table-layout: fixed;
-    width: 100%;
-    font-size: 1.6rem;
-    border-collapse: collapse;
-    border-style: hidden; }
-table.customers-table td {
-    display: block;
-    padding: 2em 1em;
-    vertical-align: top; }
-@media (min-width: 1100px) {
-    table.customers-table td {
-        display: table-cell;
-        border: 1px solid #dce7f7; } }
-table.customers-table td {
-    border-top: 1px solid #dce7f7; }
-table.customers-table h4 {
-    text-align: center; }
-table.customers-table ul {
-    list-style: none;
-    margin-left: 1em; }
-table.customers-table ul li ~ li {
-    margin-top: 0; }
-table.customers-table ul li {
-    position: relative; }
-table.customers-table ul li:before {
-    position: absolute;
-    content: "-";
-    left: -15px; }
-
 .col-cut {
     max-width: 768px;
 }
 
 .card-body {
     font-size: 1.9rem;
+
+    h1,h2 {
+        color: $secondary-color;
+    }
+
+    p {
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+                em {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+    }
 }
+
+.image {
+    margin-top: 1.5em;
+    font-size: 85%;
+
+    .image-enum {
+        font-weight: 500;
+    }
+
+    .image-description {
+        font-style: italic;
+    }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+
 
 .card-footer {
     margin-top: 25px;
@@ -486,31 +390,27 @@ table.customers-table ul li:before {
 
 .index-post-item {
     display: inline-block;
+
+    a:hover {
+        color: $secondary-color;
+        border-bottom: 2px solid $secondary-color;
+    }
+
+    h2 {
+        color: $primary-color;
+    }
+
+    h2:hover{
+        color: $secondary-color;
+    }
 }
 
-.nav {
-    text-align: center;
-    margin-top: 1em;
-}
-
-.nav a {
-    color: #e6ebe0;
-}
-
-.nav a:hover  {
-    border-bottom: 2px solid #e6ebe0;
-}
-
-.nav a.active {
-    border-bottom: 2px solid #e6ebe0;
-}
-
-.nav a+a {
-    margin-left: 5em;
+.cotent-container {
+    width: 100%;
 }
 
 code, tt {
-    font-family: Courier, 'New Courier', monospace;
+    font-family: $code-font-stack;
     font-size: 15px;
 }
 
@@ -535,12 +435,12 @@ code, tt {
 }
 
 .card-body h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 1.5em 0 0 0;
 }
 
 .card-body h2 {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     margin: 1.5em 0 0 0;
 }
 
@@ -549,15 +449,33 @@ code, tt {
 }
 
 .index-post-item {
-    color: #e6ebe0;
+    color: $primary-color;
 }
 
 a.footer-item {
     font-size: 3rem;
     margin: 0 0.75em;
-    color: #e6ebe0;
+    color: $primary-color;
 }
 
 a.footer-item:hover {
-    color: #e6ebe0;
+    color: $primary-color;
+}
+
+.left-container img.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+
+    border: 3px solid $tertiary-color;
+}
+
+#overall-title {
+    margin-top: 1em;
+    margin-left: 1em;
+    position: absolute;
+    float: left;
+    text-align: center;
+    top: 0;
+    left: 0;
 }

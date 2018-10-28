@@ -1,0 +1,39 @@
+.nav-container {
+    margin: auto;
+    text-align: center;
+}
+
+.nav {
+    margin-top: 1em;
+    margin-left: auto;
+}
+
+.nav a {
+    color: $primary-color;
+}
+
+.nav a:hover  {
+    border-bottom: 2px solid $secondary-color;
+}
+
+.nav a.active {
+    border-bottom: 2px solid $secondary-color;
+}
+
+.nav a+a {
+    margin-left: 5em;
+}
+.nav-title {
+    margin-top: 1em;
+    float: left;
+    margin-left: 1em;
+}
+
+ul.nav-list {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    list-style: none;
+}
+

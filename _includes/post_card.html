@@ -1,6 +1,9 @@
   <div class="col _center col-cut">
     <div class="card">
       <div class="card-header">
+        {% if page.picture %}
+        <img class="avatar" src="/portrait0.jpg" width="128" height="128">
+        {% endif %}
         <header class="section-header">
           <h2>{{ page.title }}</h2>
         </header>

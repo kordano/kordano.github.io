@@ -11,7 +11,9 @@ In the following article I will establish a quick performance comparison among o
 While it may be useful to compare datahike to traditional RDMS I will focus only on databases which use comparable query engines and which would be considered equivalent systems. In the Clojure world datomic and datascript are the established databases using datalog.
 <!-- overall reason why both are special-->
 
+**TODO** databases description
 ## Datomic
+
 
 ## Datascript
 
@@ -88,3 +90,5 @@ For a baseline one of the fastest queries is pulling an entry as index.
 
 <canvas id="queryChart1"></canvas>
 <!-- Insert  -->
+
+TODO: add benchmark for large datasets (> RAM)

@@ -4,7 +4,7 @@ function createBarChart(canvasID, graphData, yAxisType, yAxisTitle, xAxisTitle, 
 
   return new Chart(ctx, {
     // The type of chart we want to create
-    type: 'line',
+    type: 'bar',
 
     // The data for our dataset
     data: {

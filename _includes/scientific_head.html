@@ -20,10 +20,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
-<nav class="nav">
-  <a class="{% if page.url == '/' %} active {% endif %}"  href="/">Home</a>
-  <a class="{% if page.url == '/notes.html' %} active {% endif %}"  href="/notes">Notes</a>
-  <a class="{% if page.url == '/about.html' %} active {% endif %}"  href="/about">About</a>
-  <a class="{% if page.url == '/imprint.html' %} active {% endif %}"  href="/imprint">Impressum</a>
-</nav>
+  <div class="nav-container">
+    <div class="nav">
+      <a class="{% if page.url == '/' %} active {% endif %}"  href="/">konrad kühne</a>
+      <a class="{% if page.url == '/notes.html' %} active {% endif %}"  href="/notes">notes</a>
+      <a class="{% if page.url == '/talks.html' %} active {% endif %}"  href="/talks">talks</a>
+      <a class="{% if page.url == '/about.html' %} active {% endif %}"  href="/about">about</a>
+      <a class="{% if page.url == '/imprint.html' %} active {% endif %}"  href="/imprint">imprint</a>
+    </div>
+  </div>
+
+<div class="content-container">
 <div class="container -large _center main-row row">
