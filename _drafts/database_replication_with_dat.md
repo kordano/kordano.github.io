@@ -215,13 +215,13 @@ Awesome, now we have distributed database.
 
 # Live System
 
-For your convenience I've deployed a test dat repository with the above data on one of our servers that you can synchronize against. Just clone it like follows to your data folder `/tmp/fast-dat`:
+For your convenience I've deployed a test dat repository with the above data on one of our servers that you can synchronize against. You may clone it like follows to your data folder `/tmp/fast-dat`:
 
 ```bash
 dat clone dat0.lambdaforge.io/9e38e5ac7286178c0a4126475390a243b495885761ba9de5015c223a5abced8d /tmp/fast-dat
 ```
 
-I've added that to a script in the [example repository](https://github.com/kordano/datahike-sync). Just clone the repo, run the script and start a repl:
+Alternatively I've added that line to a script in the [example repository](https://github.com/kordano/datahike-sync). Just clone the repo, run the script and start a repl:
 
 ```bash
 git clone https://github.com/kordano/datahike-sync.git /tmp/datahike-sync
