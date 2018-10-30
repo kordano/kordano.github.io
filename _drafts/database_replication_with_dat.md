@@ -247,6 +247,6 @@ The data is correct, we have successfully replicated the demo database.
 
 
 # Conclusion and future development
-All in all we have a pretty quick solution for simple data replication without typing any synchronization code. Using multiple slaves we may scale our database reads and replicating to other machines we may have a simple backup solution. But we only have a one-way synchronization, so updates from other clients are not taken into account.
+All in all we have a pretty quick solution for simple data replication without typing any synchronization code. Using multiple slaves we may scale our database reads and by replicating to other machines we may have a simple backup solution. But we only have a one-way synchronization, so updates from other clients are not taken into account.
 
 As for datahike itself we at [lambdaforge](http://lambdaforge.io) are planning to integrate efficient index-replication based on dat providing simple APIs both on the JVM and in the JavaScript environment. Also check here for my blog post about introduction to triplestores with datalog and datahike in a couple of weeks.
