@@ -215,14 +215,36 @@ Awesome, now we have distributed database.
 
 # Live System
 
-For your convenience I've deployed a test dat repository with the above data on one of my servers that you can synchronize against. Just clone it like follows:
+For your convenience I've deployed a test dat repository with the above data on one of our servers that you can synchronize against. Just clone it like follows to your data folder `/tmp/fast-dat`:
 
 ```bash
-dat clone 
+dat clone dat0.lambdaforge.io/9e38e5ac7286178c0a4126475390a243b495885761ba9de5015c223a5abced8d /tmp/fast-dat
 ```
-Now fire up a repl and create a datahike connection:
+
+I've added that to a script in the [example repository](https://github.com/kordano/datahike-sync). Just clone the repo, run the script and start a repl:
+
+```bash
+git clone https://github.com/kordano/datahike-sync.git /tmp/datahike-sync
+cd /tmp/datahike-sync
+sh ./clone-test-repo.sh
+lein repl
+```
+
+Now we can create a connection to the cloned data repository:
+
 ```clojure
+(require '[datahike.api :as d])
+(def fast-uri "datahike:file:///tmp/datahike-sync/fast-dat")
+(def fast-conn (d/connect fast-uri))
+(d/q '[:find ?n
+         :where [?e :name ?n]]
+       @fast-conn)
+       
+;; => #{["Charlie"] ["Dorothy"] ["Alice"] ["Eve"] ["Bob"]}
 ```
+
+The data is correct, we have successfully replicated the demo database.
+
 
 # Conclusion and future development
 All in all we have a pretty quick solution for simple data replication without typing any synchronization code. Using multiple slaves we may scale our database reads and replicating to other machines we may have a simple backup solution. But we only have a one-way synchronization, so updates from other clients are not taken into account.
