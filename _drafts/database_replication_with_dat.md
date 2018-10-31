@@ -215,13 +215,7 @@ Awesome, now we have distributed database.
 
 # Live System
 
-For your convenience I've deployed a test dat repository with the above data on one of our servers that you can synchronize against. You may clone it like follows to your data folder `/tmp/fast-dat`:
-
-```bash
-dat clone dat0.lambdaforge.io/9e38e5ac7286178c0a4126475390a243b495885761ba9de5015c223a5abced8d /tmp/fast-dat
-```
-
-Alternatively I've added that line to a script in the [example repository](https://github.com/kordano/datahike-sync). Just clone the repo, run the script and start a repl:
+For your convenience I've deployed a test dat repository with the above data on one of our servers that you can synchronize against. Make sure you have dat and leiningen installed. I've added all necessary scripts in the [example repository](https://github.com/kordano/datahike-sync). Just clone the repo, run the `clone-test-repo.sh` script and start a repl:
 
 ```bash
 git clone https://github.com/kordano/datahike-sync.git /tmp/datahike-sync
@@ -247,6 +241,6 @@ The data is correct, we have successfully replicated the demo database.
 
 
 # Conclusion and future development
-All in all we have a pretty quick solution for simple data replication without typing any synchronization code. Using multiple slaves we may scale our database reads and by replicating to other machines we may have a simple backup solution. But we only have a one-way synchronization, so updates from other clients are not taken into account.
+All in all we have a pretty quick solution for simple data replication without typing any synchronization code. Two nice things can be accomplished this way: first we can easily scale horizontally be just adding more peers, and secondly we have a painless backup solution without configuring anything. Bear in mind we only have a one-way synchronization, so updates from any other peer than the master peer are not taken into account.
 
-As for datahike itself we at [lambdaforge](http://lambdaforge.io) are planning to integrate efficient index-replication based on dat providing simple APIs both on the JVM and in the JavaScript environment. Also check here for my blog post about introduction to triplestores with datalog and datahike in a couple of weeks.
+As for datahike itself we at [lambdaforge](http://lambdaforge.io) are planning to integrate efficient index-replication based on dat. Additionally we want to build simple APIs both on the JVM and in the JavaScript environment. Also check here for my blog post about introduction to triplestores with datalog and datahike in a couple of weeks.
